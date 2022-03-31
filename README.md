@@ -31,11 +31,11 @@ pip install -r requirements.txt
 
 在项目文件夹下，新建文件夹名为pictures，用于存放图像数据
 
-<img src="https://rufuspic.oss-cn-chengdu.aliyuncs.com/markdown_imgs/image-20220331212737090.png" alt="image-20220331212737090" style="zoom: 50%;" />
+<img src="https://rufuspic.oss-cn-chengdu.aliyuncs.com/markdown_imgs/image-20220331212737090.png" alt="image-20220331212737090" style="zoom: 30%;" />
 
 将数据集放入pictures文件夹内，路径如图所示。注意，这里的label1，label2等标签可以为中文。比如，假设放入的是水果数据集，那么label1可以是“西瓜”，label2可以是“梨子”。
 
-<img src="https://rufuspic.oss-cn-chengdu.aliyuncs.com/markdown_imgs/image-20220331213621738.png" alt="image-20220331213621738" style="zoom: 50%;" />
+<img src="https://rufuspic.oss-cn-chengdu.aliyuncs.com/markdown_imgs/image-20220331213621738.png" alt="image-20220331213621738" style="zoom: 30%;" />
 
 **至此，所有准备工作已经完成**
 
