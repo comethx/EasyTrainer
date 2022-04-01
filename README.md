@@ -25,7 +25,7 @@ First clone this repository
 git clone https://github.com/comethx/EasyTrainer.git
 ```
 
-Then install the relevant environment
+Then install the relevant environment(If you already have pytorch and its components installed, you can skip this step)
 
 ```shell
 pip install -r requirements.txt
