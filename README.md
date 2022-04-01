@@ -13,7 +13,7 @@ if __name__ == "__main__":
     result = model.predict(img)
 ```
 
-This project is a further encapsulation of Pytorch and is aimed at beginners of deep learning. The purpose is to reduce the time for debugging code, so that everyone can focus on model tuning and participate in optimization strategy selection.
+This project is a further encapsulation of Pytorch and is aimed at helping beginners of deep learning. My purpose is to reduce the time for debugging code, so that everyone can focus on model tuning and participate in optimization strategy selection.
 
 ## Getting started
 
