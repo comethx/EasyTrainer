@@ -1,5 +1,7 @@
 # EasyTrainer
 
+[🔎Chinese documentation](https://github.com/comethx/EasyTrainer/blob/main/README_CN.md)
+
 Quickly train and invoke a machine learning image classification model with **a few lines of code**.
 
 ```python
