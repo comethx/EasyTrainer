@@ -25,14 +25,15 @@ def load_model_and_save_dir(model_name, resume_epoch, gpu_nums, froze_front_laye
     if not resume_epoch:
         print('<EasyTrainer> Using: {}'.format(model_name))
         print('<EasyTrainer> Loading the weights')
-        if model_name.startswith('adv-efficientnet') or model_name.startswith('efficientnet'):
-            model = NameMap.MAPPING[model_name](num_classes=num_classes, model_name='efficientnet-b3')
+        if model_name.startswith('efficientnet'):
+            model = NameMap.MAPPING[model_name](num_classes=num_classes, model_name=model_name)
         else:
             model = NameMap.MAPPING[model_name](num_classes=num_classes)
         if froze_front_layers:
             all_parameter_count = len(list(model.named_parameters()))
             current_parameter_id = 0
-            print('<EasyTrainer> {} parameters will be frozen'.format(all_parameter_count / 4))
+            print('<EasyTrainer> One fourth of the parameters of the top layers will be frozen ({})'.format(
+                all_parameter_count / 4))
             for name, parameter in model.named_parameters():
                 current_parameter_id += 1
                 if current_parameter_id > (all_parameter_count / 4):

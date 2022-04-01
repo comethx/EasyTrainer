@@ -69,7 +69,7 @@ cd EasyTrainer && mkdir pictures
 
 **至此，所有准备工作已经完成**
 
-下面打开demo.py文件，运行实例代码。
+下面打开demo.py文件，运行实例代码，即可训练模型。
 
 ```python
 from EasyTrainerCore import EasyTrain
@@ -86,11 +86,12 @@ if __name__ == "__main__":
 from EasyTrainerCore import EasyTrain
 
 if __name__ == "__main__":
-    EasyTrain.start(
+    # after training, the EasyTrain.start() will return the latest model
+    model = EasyTrain.start(
 
-        gpu_nums=0,  # 0: using cpu to train, 1: using gpu to train, more than 1: using multi-gpu to train (default: 0)
+        gpu_nums=1,  # 0: using cpu to train, 1: using gpu to train, more than 1: using multi-gpu to train (default: 0)
 
-        model_name="mobilenetv2",  # choose the model, you can choose from the list (default: mobilenetv2)
+        model_name="mobilenetv2",  # choose the model, you can choose from the list (default: efficientnet-b3)
 
         # 'resnext101_32x8d'
         # 'resnext101_32x16d',
@@ -101,31 +102,29 @@ if __name__ == "__main__":
         # 'densenet121',
         # 'densenet169',
         # 'mobilenetv2',
-        # 'efficientnet-b0'
-        # 'efficientnet-b8'
+        # 'efficientnet-b0' ~ 'efficientnet-b8'
 
-        froze_front_layers=False,  # To freeze the parameters of front layers (default: False)
+        froze_front_layers=True,  # To freeze the parameters of front layers (default: False)
 
-        lr=1e-1,  # learning rate
+        lr=1e-1,  # learning rate (default: 1e-2)
         lr_adjust_strategy="cosine",  # "cosine" or "step" (default: None)
-        optimizer="SGD",  # SGD or Adam
+        optimizer="Adam",  # SGD or Adam (default: Adam)
         loss_function="CrossEntropyLoss",
-        # ↑ CrossEntropyLoss/FocalLoss/SoftmaxCrossEntropyLoss (default: CrossEntropyLoss)
+        # ↑ CrossEntropyLoss or FocalLoss or SoftmaxCrossEntropyLoss (default: CrossEntropyLoss)
         train_and_val_split=0.8,  # train and val split ratio (default: 0.8)
-        picture_size=256,  # picture size for train and val dataset (default: 256)
-
+        picture_size=256,  # the picture size of the model (default: 64)
         batch_size=64,  # batch size for training (default: 64)
+
         resume_epoch=0,  # resume training from last_epoch (default: 0)
         max_epoch=3,  # max epoch for training (default: 10)
         save_sequence=2  # save model every n epochs (default: 2)
-
     )
 
 ```
 
 ## 模型保存并调用
 
-训练开始时，EasyTrainer会自动在当前目录下生成一个weights文件夹，用于存放模型数据。weights文件夹存有下有模型检查点文件夹和模型原本的文件。
+训练开始后，当需要保存模型时，EasyTrainer会自动在当前目录下生成一个weights文件夹，用于存放模型数据。weights文件夹存有下有模型检查点文件夹和模型原本的文件。
 
 ```
 ├─EasyTrainerCore
@@ -142,7 +141,7 @@ if __name__ == "__main__":
             epcoh_5.pth
 ```
 
-通过读取检查点的模型文件，可以快速实现模型调用并预测结果。下方代码块输出的result，和pictures下的文件夹名字保持一致。即，EasyModel帮我们自动进行了数字下标到真正标签名的替换工作。
+通过读取检查点的模型文件，可以快速实现模型调用并预测结果。**下方代码块输出的result和pictures下的文件夹名字保持一致**。即EasyModel帮我们自动进行了数字下标到真正标签名的替换工作。
 
 ```python
 from EasyTrainerCore.Model import EasyModel
@@ -157,6 +156,6 @@ result, confidence = model.predict(img)
 
 ## TODO LIST
 
-- [ ] 关于自定义训练过程参数的详细说明
+- [ ] 详细说明
 - [ ] 英文文档
 - [ ] 改进性能

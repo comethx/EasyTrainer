@@ -40,17 +40,22 @@ def start(model_name='efficientnet-b3',
         optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=lr)
 
     elif optimizer == "SGD":
-        optimizer = optim.SGD(model.parameters(), lr=lr,
+        optimizer = optim.SGD(filter(lambda p: p.requires_grad, model.parameters()), lr=lr,
                               momentum=0.9, weight_decay=5e-4)
     else:
-        optimizer = optim.Adam(model.parameters(), lr=lr)
+        raise ValueError("optimizer should be Adam or SGD")
 
     if loss_function == "CrossEntropyLoss":
         criterion = nn.CrossEntropyLoss()
     elif loss_function == "BCEWithLogitsLoss":
         criterion = nn.BCEWithLogitsLoss()
-    else:
+    elif loss_function == "LabelSmoothingCrossEntropy":
         criterion = LabelSmoothingCrossEntropy()
+    else:
+        raise ValueError("loss_function should be CrossEntropyLoss or BCEWithLogitsLoss or LabelSmoothingCrossEntropy")
+
+    if resume_epoch > max_epoch:
+        raise ValueError("resume_epoch should be less than max_epoch")
 
     epoch_size = picture_num // batch_size
 
@@ -92,11 +97,13 @@ def start(model_name='efficientnet-b3',
             if iteration in stepvalues:
                 step_index += 1
             lr = adjust_learning_rate_step(optimizer, base_lr, 0.1, epoch, step_index, iteration, epoch_size)
-        if lr_adjust_strategy == "cosine":
+        elif lr_adjust_strategy == "cosine":
             lr = adjust_learning_rate_cosine(optimizer, global_step=global_step,
                                              learning_rate_base=base_lr,
                                              total_steps=max_iter,
                                              warmup_steps=warmup_steps)
+        elif not lr_adjust_strategy:
+            raise ValueError("lr_adjust_strategy should be step or cosine or None")
 
         images, labels = next(batch_iterator)
 
@@ -108,8 +115,6 @@ def start(model_name='efficientnet-b3',
 
         optimizer.zero_grad()
 
-        if froze_front_layers:
-            loss.requires_grad_(True)
         loss.backward()
 
         optimizer.step()
