@@ -23,7 +23,7 @@ if __name__ == "__main__":
 git clone https://github.com/comethx/EasyTrainer.git
 ```
 
-然后安装相关环境
+然后安装相关环境(如果你已经安装了pytorch及相关组件，可以先跳过这一步)
 
 ```
 pip install -r requirements.txt
