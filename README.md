@@ -150,7 +150,7 @@ from PIL import Image
 
 model = EasyModel("/weights/your_model_name/??_epoch.pth")
 img = Image.open(img_path)
-result = model.predict(img)
+result, confidence = model.predict(img)
 ```
 
 **请注意：上述所有操作，必须保证运行初始的路径在项目目录文件夹下，否则会引发路径错误。**
