@@ -23,16 +23,15 @@ def start(model_name='efficientnet-b3',
           resume_epoch=0,
           save_sequence=5,
           gpu_nums=0,
-          weight_decay=5e-4,
-          momentum=0.9,
           train_and_val_split=0.8
           ):
     model, save_folder = init_model.load_model_and_save_dir(model_name, resume_epoch, gpu_nums, froze_front_layers,
                                                             train_and_val_split)
 
-    train_dataloader, picture_num = data.get_train_dataloader_and_length(train_label_dir="EasyTrainerCore/data/train.txt",
-                                                                         picture_size=picture_size,
-                                                                         batch_size=batch_size)
+    train_dataloader, picture_num = data.get_train_dataloader_and_length(
+        train_label_dir="EasyTrainerCore/data/train.txt",
+        picture_size=picture_size,
+        batch_size=batch_size)
     val_dataloader = data.get_val_dataloader(val_label_dir="EasyTrainerCore/data/val.txt",
                                              picture_size=picture_size,
                                              batch_size=int(batch_size * (1 - train_and_val_split)))
@@ -42,7 +41,7 @@ def start(model_name='efficientnet-b3',
 
     elif optimizer == "SGD":
         optimizer = optim.SGD(model.parameters(), lr=lr,
-                              momentum=momentum, weight_decay=weight_decay)
+                              momentum=0.9, weight_decay=5e-4)
     else:
         optimizer = optim.Adam(model.parameters(), lr=lr)
 
@@ -80,7 +79,6 @@ def start(model_name='efficientnet-b3',
             val_batch_iterator = iter(val_dataloader)
             epoch += 1
             model.train()
-            # 保存模型
             if epoch % save_sequence == 0 and epoch > 0:
                 checkpoint_save_path = os.path.join(save_folder, 'epoch_{}.pth'.format(epoch))
                 checkpoint = {'model': model,
