@@ -21,9 +21,9 @@ if __name__ == "__main__":
 
         froze_front_layers=False,  # To freeze the parameters of front layers (default: False)
 
-        lr=1e-1,  # learning rate
+        lr=1e-1,  # learning rate (default: 1e-1)
         lr_adjust_strategy="cosine",  # "cosine" or "step" (default: None)
-        optimizer="SGD",  # SGD or Adam
+        optimizer="SGD",  # SGD or Adam (default: SGD)
         loss_function="CrossEntropyLoss",
         # ↑ CrossEntropyLoss/FocalLoss/SoftmaxCrossEntropyLoss (default: CrossEntropyLoss)
         train_and_val_split=0.8,  # train and val split ratio (default: 0.8)
