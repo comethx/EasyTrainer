@@ -1,6 +1,8 @@
 # EasyTrainer
 
-Quickly train and invoke a machine learning image classification model with **a few lines of code**.
+
+
+使用**几行代码**，快速训练并调用一个机器学习图像分类模型。
 
 ```python
 from EasyTrainerCore import EasyTrain
@@ -11,33 +13,33 @@ if __name__ == "__main__":
     result = model.predict(img)
 ```
 
-This project is a further encapsulation of Pytorch and is aimed at beginners of deep learning. The purpose is to reduce the time for debugging code, so that everyone can focus on model tuning and participate in optimization strategy selection.
+本项目是对Pytorch的进一步封装，面向**深度学习的初学者**，目的是减少大家调通代码的时间，让大家专注于模型调参与优化策略选择。
 
-## Getting started
+## 快速开始
 
-### Environment preparation
+### 环境搭建
 
-First clone this repository
+首先克隆本仓库
 
-```shell
+```
 git clone https://github.com/comethx/EasyTrainer.git
 ```
 
-Then install the relevant environment
+然后安装相关环境
 
-```shell
+```
 pip install -r requirements.txt
 ```
 
-### dataset preparation
+### 数据准备
 
-Go to the project folder, create a new folder named **pictures** to store image data
+进入项目文件夹下，**新建文件夹名为pictures**，用于存放图像数据
 
 ```shell
 cd EasyTrainer && mkdir pictures
 ```
 
-Put the dataset into the pictures folder, and the path is as shown in the figure. For example, if you put a fruit dataset, then label1 can be "watermelon", and label2 can be "pear".
+将数据集放入pictures文件夹内，路径如图所示。注意，这里的label1，label2等标签可以为中文。比如，假设放入的是水果数据集，那么label1可以是“西瓜”，label2可以是“梨子”。
 
 ```
 │  demo.py
@@ -68,9 +70,9 @@ Put the dataset into the pictures folder, and the path is as shown in the figure
  			. . . .
 ```
 
-**So far, all preparations have been completed**
+**至此，所有准备工作已经完成**
 
-Open the demo.py file below and run the example code to train the model.
+下面打开demo.py文件，运行实例代码，即可训练模型。
 
 ```python
 from EasyTrainerCore import EasyTrain
@@ -79,9 +81,9 @@ if __name__ == "__main__":
     EasyTrain.start()
 ```
 
-## Training parameter customization
+## 训练参数自定义
 
-If you have successfully run the demo.py file, you can try further customizations. Open the demo_plus file and modify various parameters of EasyTrain.start to implement custom model training.
+若已经成功运行了demo.py文件，则可以尝试进一步的自定义操作。打开demo_plus文件，修改EasyTrain.start的各种参数，即可实现自定义模型训练。
 
 ```python
 from EasyTrainerCore import EasyTrain
@@ -123,9 +125,9 @@ if __name__ == "__main__":
 
 ```
 
-## Use the trained model
+## 模型保存并调用
 
-After training starts, when the model needs to be saved, EasyTrainer will automatically generate a **weights** folder in the current directory to store the model data. The weights folder contains the model checkpoint folder and the original files of the model.
+训练开始后，当需要保存模型时，EasyTrainer会自动在当前目录下生成一个weights文件夹，用于存放模型数据。weights文件夹存有下有模型检查点文件夹和模型原本的文件。
 
 ```
 ├─EasyTrainerCore
@@ -142,7 +144,7 @@ After training starts, when the model needs to be saved, EasyTrainer will automa
             epcoh_5.pth
 ```
 
-By loading the checkpointed model file, you can quickly use model to predict results. **The result output by the code block below is the same as the folder name under pictures**. That is, EasyModel helps us to automatically replace the number subscript to the real tag name.
+通过读取检查点的模型文件，可以快速实现模型调用并预测结果。**下方代码块输出的result和pictures下的文件夹名字保持一致**。即EasyModel帮我们自动进行了数字下标到真正标签名的替换工作。
 
 ```python
 from EasyTrainerCore.Model import EasyModel
@@ -153,12 +155,11 @@ img = Image.open(img_path)
 result, confidence = model.predict(img)
 ```
 
-**Please note: For all the above operations, you must ensure that the initial path to run is under the project directory folder, otherwise a path error will occur. **
+**请注意：上述所有操作，必须保证运行初始的路径在项目目录文件夹下，否则会引发路径错误。**
 
 ## TODO LIST
 
-- [ ] Detailed description
-- [ ] Improve code comments
-- [x] English Documentation
-- [ ] Improve performance
-
+- [ ] 详细说明
+- [ ] 完善代码注释
+- [ ] 英文文档
+- [ ] 改进性能
