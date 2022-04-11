@@ -81,7 +81,7 @@ if __name__ == "__main__":
     EasyTrain.start()
 ```
 
-## Training parameter customization
+## Training with parameter customization
 
 If you have successfully run the demo.py file, you can try further customizations. Open the demo_plus file and modify various parameters of EasyTrain.start to implement custom model training.
 
