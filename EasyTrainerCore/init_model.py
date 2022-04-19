@@ -40,7 +40,7 @@ def load_model_and_save_dir(model_name, resume_epoch, gpu_nums, froze_front_laye
                     break
                 parameter.requires_grad = False
     else:
-        print('<EasyTrainer> Resume training from {}  epoch {}'.format(model_name, resume_epoch))
+        print('<EasyTrainer> Resuming from {}  epoch {}'.format(model_name, resume_epoch))
         model = load_checkpoint(os.path.join(save_folder, 'epoch_{}.pth'.format(resume_epoch)))
 
     if gpu_nums > 1 and torch.cuda.is_available():
