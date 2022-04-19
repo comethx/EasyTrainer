@@ -1,5 +1,5 @@
 from EasyTrainerCore.Model import EasyModel
 
-EasyModel.load('weights/densenet169/epoch_10.pth')
-result, confidence = EasyModel.predict('pictures/传单/baidu000005.jpg')
+EasyModel.load('weights_path')
+result, confidence = EasyModel.predict('image_path')
 print(result, confidence)
