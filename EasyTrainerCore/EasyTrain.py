@@ -23,7 +23,7 @@ def start(model_name='efficientnet-b3',
           resume_epoch=0,
           save_sequence=5,
           gpu_nums=0,
-          train_and_val_split=0.8
+          train_and_val_split=1
           ):
     model, save_folder = init_model.load_model_and_save_dir(model_name, resume_epoch, gpu_nums, froze_front_layers,
                                                             train_and_val_split)
@@ -32,9 +32,9 @@ def start(model_name='efficientnet-b3',
         train_label_dir="EasyTrainerCore/data/train.txt",
         picture_size=picture_size,
         batch_size=batch_size)
-    val_dataloader = data.get_val_dataloader(val_label_dir="EasyTrainerCore/data/val.txt",
-                                             picture_size=picture_size,
-                                             batch_size=int(batch_size * (1 - train_and_val_split)))
+    # val_dataloader = data.get_val_dataloader(val_label_dir="EasyTrainerCore/data/val.txt",
+    #                                          picture_size=picture_size,
+    #                                          batch_size=int(batch_size * (1 - train_and_val_split)))
 
     if optimizer == "Adam":
         optimizer = optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=lr)
@@ -81,7 +81,7 @@ def start(model_name='efficientnet-b3',
 
         if iteration % epoch_size == 0:
             batch_iterator = iter(train_dataloader)
-            val_batch_iterator = iter(val_dataloader)
+            # val_batch_iterator = iter(val_dataloader)
             epoch += 1
             model.train()
             if epoch % save_sequence == 0 and epoch > 0:
@@ -125,26 +125,26 @@ def start(model_name='efficientnet-b3',
 
         train_acc = (train_correct.float()) / batch_size
 
-        if ((iteration % epoch_size) + 1) / epoch_size >= 1:
-            model.eval()
-
-            val_images, val_labels = next(val_batch_iterator)
-
-            if torch.cuda.is_available() and gpu_nums != 0:
-                val_images, val_labels = val_images.cuda(), val_labels.cuda()
-
-            val_out = model(val_images)
-            val_loss = criterion(val_out, val_labels.long())
-
-            val_prediction = torch.max(val_out, 1)[1]
-            val_correct = (val_prediction == val_labels).sum()
-            val_acc = (val_correct.float()) / batch_size
-            print('<EasyTrainer> Epoch:' + repr(epoch) + ' || epochiter: ' + repr(iteration % epoch_size) + '/' +
-                  repr(epoch_size) + ' || loss: %.6f||' % (loss.item()) + 'acc: %.3f ||' % (
-                          train_acc * 100) + 'LR: %.8f' % lr + '||val_loss: %.6f||' % (
-                      val_loss.item()) + 'val_acc: %.3f' % (
-                          val_acc * 100))
-        elif iteration % 10 == 0:
+        # if ((iteration % epoch_size) + 1) / epoch_size >= 1:
+        #     model.eval()
+        #
+        #     val_images, val_labels = next(val_batch_iterator)
+        #
+        #     if torch.cuda.is_available() and gpu_nums != 0:
+        #         val_images, val_labels = val_images.cuda(), val_labels.cuda()
+        #
+        #     val_out = model(val_images)
+        #     val_loss = criterion(val_out, val_labels.long())
+        #
+        #     val_prediction = torch.max(val_out, 1)[1]
+        #     val_correct = (val_prediction == val_labels).sum()
+        #     val_acc = (val_correct.float()) / batch_size
+        #     print('<EasyTrainer> Epoch:' + repr(epoch) + ' || epochiter: ' + repr(iteration % epoch_size) + '/' +
+        #           repr(epoch_size) + ' || loss: %.6f||' % (loss.item()) + 'acc: %.3f ||' % (
+        #                   train_acc * 100) + 'LR: %.8f' % lr + '||val_loss: %.6f||' % (
+        #               val_loss.item()) + 'val_acc: %.3f' % (
+        #                   val_acc * 100))
+        if iteration % 10 == 0:
             print('<EasyTrainer> Epoch:' + repr(epoch) + ' || epochiter: ' + repr(iteration % epoch_size) + '/' +
                   repr(epoch_size) + ' || loss: %.6f||' % (loss.item()) + 'acc: %.3f ||' % (
                           train_acc * 100) + 'LR: %.8f' % lr)

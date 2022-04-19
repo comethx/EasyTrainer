@@ -112,7 +112,6 @@ if __name__ == "__main__":
         optimizer="Adam",  # SGD or Adam (default: Adam)
         loss_function="CrossEntropyLoss",
         # ↑ CrossEntropyLoss or FocalLoss or SoftmaxCrossEntropyLoss (default: CrossEntropyLoss)
-        train_and_val_split=0.8,  # train and val split ratio (default: 0.8)
         picture_size=256,  # the picture size of the model (default: 64)
         batch_size=64,  # batch size for training (default: 64)
 
@@ -148,9 +147,9 @@ if __name__ == "__main__":
 from EasyTrainerCore.Model import EasyModel
 from PIL import Image
 
-model = EasyModel("/weights/your_model_name/??_epoch.pth")
+EasyModel.load(weights_path)
 img = Image.open(img_path)
-result, confidence = model.predict(img)
+result, confidence = EasyModel.predict(img)
 ```
 
 **请注意：上述所有操作，必须保证运行初始的路径在项目目录文件夹下，否则会引发路径错误。**

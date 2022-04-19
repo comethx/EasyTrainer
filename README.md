@@ -114,7 +114,6 @@ if __name__ == "__main__":
         optimizer="Adam",  # SGD or Adam (default: Adam)
         loss_function="CrossEntropyLoss",
         # ↑ CrossEntropyLoss or FocalLoss or SoftmaxCrossEntropyLoss (default: CrossEntropyLoss)
-        train_and_val_split=0.8,  # train and val split ratio (default: 0.8)
         picture_size=256,  # the picture size of the model (default: 64)
         batch_size=64,  # batch size for training (default: 64)
 
@@ -150,9 +149,9 @@ By loading the checkpointed model file, you can quickly use model to predict res
 from EasyTrainerCore.Model import EasyModel
 from PIL import Image
 
-model = EasyModel("/weights/your_model_name/??_epoch.pth")
+EasyModel.load(weights_path)
 img = Image.open(img_path)
-result, confidence = model.predict(img)
+result, confidence = EasyModel.predict(img)
 ```
 
 **Please note: For all the above operations, you must ensure that the initial path to run is under the project directory folder, otherwise a path error will occur. **
