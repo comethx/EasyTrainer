@@ -1,5 +1,4 @@
 # EasyTrainer
-注：本项目已参加服务外包创新创业大赛 队伍号为2102853
 [🔎Chinese documentation](https://github.com/comethx/EasyTrainer/blob/main/README_CN.md)
 
 Quickly train and invoke a machine learning image classification model with **a few lines of code**.
